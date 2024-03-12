@@ -101,11 +101,11 @@ class PlayList {
             this.size++;
             return true; }
           
-            int j = size;
-            while (j >= i) {
-                tracks[j+1]=tracks[j];
-                j--;
-            }tracks[j]=track;
+           
+            for(int j = size; j>i ;j--){
+                tracks[j]=tracks[j-1];
+            
+            }tracks[i]=track;
              size++;
         return true;
     }
@@ -114,14 +114,13 @@ class PlayList {
      *  If the list is empty, or the given index is negative or too big for this list, 
      *  does nothing and returns -1. */
     public void remove(int i) {
-      if(size!=0 || i>=0 || i<maxSize){
-        int j = i ;
-        while (j<size) {
-            tracks[j]=tracks[j+1];
-            j++;   
-        }tracks[size]=null;
-      
-      }size--;
+      if(tracks[0]!=null && i>=0 && i<size){
+       for(int j = i; j<size-1 ;j++){
+         tracks[j]=tracks[j+1];
+          }
+          tracks[size]=null;
+          size--;
+      }
     }
 
     /** Removes the first track that has the given title from this list.
@@ -131,14 +130,19 @@ class PlayList {
 
         for(int i =0 ;i < this.size; i++){
             if(title.toLowerCase().equals(tracks[i].getTitle().toLowerCase()) ){
-                    int j = i ;
-                    while (j<size) {
-                        tracks[j]=tracks[j+1];
-                        j++;  }
-                        tracks[size]=null;
-
+                tracks[i]=null;
+                if(i==size-1){
                     size--;
-                    break;
+                break; 
+                }
+               else{
+                     for(int j=i; j<size-1 ;j++){
+                      tracks[j]=tracks[j+1];
+                }
+                       tracks[size-1]=null;
+                        size--;
+                        }
+                 
                   }
 
             }
@@ -149,12 +153,11 @@ class PlayList {
 
     /** Removes the first track from this list. If the list is empty, does nothing. */
     public void removeFirst() {
-       if (size!=0){
-            int j = 0 ;
-            while (j<size) {
-                tracks[j]=tracks[j+1];
-                j++;   
-            }tracks[size]=null;
+       if (size>0){
+        tracks[0 ]=null;
+        for(int i=0; i< size-1 ;i++){
+                tracks[i]=tracks[i+1];
+            }tracks[size-1]=null;
             size--;
           }
        }
@@ -164,9 +167,8 @@ class PlayList {
      *  If the total size of both lists is too large, does nothing. */
     //// An elegant and terribly inefficient implementation.
      public void add(PlayList other) {
-        if (other.size+this.size<this.maxSize){
-            int j = other.size;
-            for (int i =0 ; i <=j ;i++){
+        if ((other.size+this.size)<= this.maxSize){
+            for (int i =0 ; i <=other.size ;i++){
              tracks[this.size+i]=other.tracks[i];
             }
            
