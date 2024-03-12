@@ -16,7 +16,7 @@ class Track {
      *  For example, "John Lennon, Imagine, 3:07" */
     public String toString() {
          String tduration = this.formattedDuration(duration);
-        return artist + ", " + title + ", " + tduration;
+         return artist + ", " + title + ", " + tduration;
     }
 
     /** Returns this track's title. */
