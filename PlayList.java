@@ -35,7 +35,7 @@ class PlayList {
      *  If the list is full, does nothing and returns false.
      *  Otherwise, appends the track and returns true. */
     public boolean add(Track track) {
-       if(this.maxSize>=this.size){
+       if(this.maxSize<=this.size){
         return false;
        } else{
         tracks[this.size]=track;
